@@ -60,10 +60,6 @@ Both components act during training only; inference runs the MonoViT depth netwo
 </tr>
 </table>
 
-## 📰 News
-
-- **2026-11** — Training code and training triplets released for our *ISPRS Journal of Photogrammetry and Remote Sensing* paper.
-
 ## 🚀 Quick Start
 
 ```bash
