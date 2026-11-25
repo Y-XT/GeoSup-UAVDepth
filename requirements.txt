@@ -1,0 +1,15 @@
+# Versions used for the paper experiments (Python 3.10).
+# Install PyTorch first for your CUDA version, e.g. torch==2.8.0 / torchvision==0.23.0 (CUDA 12.6),
+# then: pip install -r requirements.txt
+# mmcv-full and mmsegmentation (needed by the MPViT encoder) are installed separately, see README.
+numpy==1.26.4
+scipy==1.11.4
+Pillow==11.3.0
+opencv-python==4.10.0.84
+scikit-image==0.21.0
+matplotlib==3.10.6
+tqdm==4.65.2
+six==1.17.0
+timm==1.0.19
+einops==0.8.1
+wandb==0.27.2
