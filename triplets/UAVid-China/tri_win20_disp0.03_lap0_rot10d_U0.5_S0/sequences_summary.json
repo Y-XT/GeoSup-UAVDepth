@@ -1,0 +1,190 @@
+{
+  "run_tag": "win20_disp0.03_lap0_rot10d_U0.5_S0",
+  "generated_at": "2026-02-07T03:47:32",
+  "sequence_count": 30,
+  "total_frames": 6604,
+  "total_selected_triplets": 5790,
+  "total_rejected": 814,
+  "sequences": [
+    {
+      "seq": "seq10/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 136,
+      "rejected_total": 90
+    },
+    {
+      "seq": "seq11/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 223,
+      "rejected_total": 3
+    },
+    {
+      "seq": "seq12/data_1280",
+      "total_frames": 220,
+      "selected_triplets": 214,
+      "rejected_total": 6
+    },
+    {
+      "seq": "seq16/data_1280",
+      "total_frames": 175,
+      "selected_triplets": 159,
+      "rejected_total": 16
+    },
+    {
+      "seq": "seq18/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 224,
+      "rejected_total": 2
+    },
+    {
+      "seq": "seq2/data_1280",
+      "total_frames": 171,
+      "selected_triplets": 155,
+      "rejected_total": 16
+    },
+    {
+      "seq": "seq21/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 209,
+      "rejected_total": 17
+    },
+    {
+      "seq": "seq22/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 211,
+      "rejected_total": 15
+    },
+    {
+      "seq": "seq23/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 172,
+      "rejected_total": 54
+    },
+    {
+      "seq": "seq24/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 223,
+      "rejected_total": 3
+    },
+    {
+      "seq": "seq25/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 223,
+      "rejected_total": 3
+    },
+    {
+      "seq": "seq26/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 220,
+      "rejected_total": 6
+    },
+    {
+      "seq": "seq27/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 217,
+      "rejected_total": 9
+    },
+    {
+      "seq": "seq28/data_1280",
+      "total_frames": 162,
+      "selected_triplets": 132,
+      "rejected_total": 30
+    },
+    {
+      "seq": "seq3/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 157,
+      "rejected_total": 69
+    },
+    {
+      "seq": "seq32/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 208,
+      "rejected_total": 18
+    },
+    {
+      "seq": "seq33/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 218,
+      "rejected_total": 8
+    },
+    {
+      "seq": "seq34/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 223,
+      "rejected_total": 3
+    },
+    {
+      "seq": "seq35/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 206,
+      "rejected_total": 20
+    },
+    {
+      "seq": "seq37/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 222,
+      "rejected_total": 4
+    },
+    {
+      "seq": "seq39/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 155,
+      "rejected_total": 71
+    },
+    {
+      "seq": "seq4/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 223,
+      "rejected_total": 3
+    },
+    {
+      "seq": "seq40/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 221,
+      "rejected_total": 5
+    },
+    {
+      "seq": "seq41/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 198,
+      "rejected_total": 28
+    },
+    {
+      "seq": "seq42/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 224,
+      "rejected_total": 2
+    },
+    {
+      "seq": "seq5/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 160,
+      "rejected_total": 66
+    },
+    {
+      "seq": "seq6/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 203,
+      "rejected_total": 23
+    },
+    {
+      "seq": "seq7/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 224,
+      "rejected_total": 2
+    },
+    {
+      "seq": "seq8/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 131,
+      "rejected_total": 95
+    },
+    {
+      "seq": "seq9/data_1280",
+      "total_frames": 226,
+      "selected_triplets": 99,
+      "rejected_total": 127
+    }
+  ]
+}

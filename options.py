@@ -78,8 +78,8 @@ class MonodepthOptions:
         # UAVula TriDataset 额外参数
         self.parser.add_argument("--triplet_root",
                                 type=str,
-                                default="/mnt/data_nvme3n1p1/dataset/UAV_ula/uav_triplets",
-                                help="阶段二输出根目录（包含 <seq>/triplets.jsonl）"
+                                default=None,
+                                help="三元组目录（其下任意层级的 triplets.jsonl 都会被读取），如 triplets/UAV-ula/<tag>"
                                 )
         self.parser.add_argument("--png",
                                  help="if set, trains from raw KITTI png files (instead of jpgs)",

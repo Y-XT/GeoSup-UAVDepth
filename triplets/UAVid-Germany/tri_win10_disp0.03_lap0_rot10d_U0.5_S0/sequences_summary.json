@@ -1,0 +1,52 @@
+{
+  "run_tag": "win10_disp0.03_lap0_rot10d_U0.5_S0",
+  "generated_at": "2026-03-29T15:23:51",
+  "sequence_count": 7,
+  "total_frames": 3157,
+  "total_selected_triplets": 2972,
+  "total_rejected": 185,
+  "sequences": [
+    {
+      "seq": "seq13/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 423,
+      "rejected_total": 28
+    },
+    {
+      "seq": "seq14/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 374,
+      "rejected_total": 77
+    },
+    {
+      "seq": "seq15/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 433,
+      "rejected_total": 18
+    },
+    {
+      "seq": "seq19/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 425,
+      "rejected_total": 26
+    },
+    {
+      "seq": "seq31/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 449,
+      "rejected_total": 2
+    },
+    {
+      "seq": "seq36/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 449,
+      "rejected_total": 2
+    },
+    {
+      "seq": "seq38/data_1280",
+      "total_frames": 451,
+      "selected_triplets": 419,
+      "rejected_total": 32
+    }
+  ]
+}

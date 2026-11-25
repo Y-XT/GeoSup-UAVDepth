@@ -12,6 +12,7 @@
 # --------------------------------------------------------------------------------
 
 
+import os
 import numpy as np
 import math
 
@@ -859,7 +860,12 @@ def mpvit_small(**kwargs):
         num_heads=[8, 8, 8, 8],
         **kwargs,
     )
-    checkpoint = torch.load('/mnt/data_nvme3n1p1/PycharmProjects/monodepth2/ckpt/mpvit_small.pth', map_location=lambda storage, loc: storage)
+    # ImageNet 预训练 MPViT-S 权重（MonoViT 同款）；默认放在 <repo>/pretrained/，可用环境变量 MPVIT_CKPT 覆盖
+    ckpt_path = os.environ.get(
+        "MPVIT_CKPT",
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "pretrained", "mpvit_small.pth"),
+    )
+    checkpoint = torch.load(ckpt_path, map_location=lambda storage, loc: storage)
     checkpoint_state = _extract_checkpoint_state_dict(checkpoint)
     matched_num, total_num = _count_matched_tensors(model, checkpoint_state)
     logger = get_root_logger()
@@ -868,7 +874,7 @@ def mpvit_small(**kwargs):
     model.pretrained_num_total = total_num
     print(
         "[init_models][pretrained] encoder=MPViT(small): loaded "
-        f"(ckpt=/mnt/data_nvme3n1p1/PycharmProjects/monodepth2/ckpt/mpvit_small.pth, "
+        f"(ckpt={ckpt_path}, "
         f"matched={matched_num}/{total_num})"
     )
     del checkpoint

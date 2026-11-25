@@ -1,0 +1,183 @@
+{
+  "script": "vggt_triplet_builder_disp_only.py",
+  "generated_at": "2026-03-29T14:14:29",
+  "run_tag": "win10_disp0.03_lap0_rot10d_U0.5_S0",
+  "paths": {
+    "image_root": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/All",
+    "metrics_root": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/tri_metrics",
+    "out_root": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/tri_win10_disp0.03_lap0_rot10d_U0.5_S0"
+  },
+  "arguments": {
+    "sample_stride": {
+      "flags": [
+        "--sample_stride"
+      ],
+      "value": 4,
+      "default": 4,
+      "changed": false,
+      "help": "（保留，仅用于速度。若使用 compute_U_and_disp_median 的稠密实现，可忽略）"
+    },
+    "min_lap_p": {
+      "flags": [
+        "--min_lap_p"
+      ],
+      "value": 0.0,
+      "default": 0.0,
+      "changed": false,
+      "help": "拉普拉斯方差低于本序列分位数则过滤（0~1）"
+    },
+    "max_clip": {
+      "flags": [
+        "--max_clip"
+      ],
+      "value": 255,
+      "default": 255,
+      "changed": false,
+      "help": "欠/过曝比例任何一项超过则过滤"
+    },
+    "min_val": {
+      "flags": [
+        "--min_val"
+      ],
+      "value": 0,
+      "default": 0,
+      "changed": false,
+      "help": "V 均值过低过滤 [0,255]"
+    },
+    "eps_px": {
+      "flags": [
+        "--eps_px"
+      ],
+      "value": 2.0,
+      "default": 2.0,
+      "changed": false,
+      "help": "可用视差下限（像素）"
+    },
+    "delta_px": {
+      "flags": [
+        "--delta_px"
+      ],
+      "value": 80.0,
+      "default": 80.0,
+      "changed": false,
+      "help": "可用视差上限（像素）"
+    },
+    "delta_px_frac": {
+      "flags": [
+        "--delta_px_frac"
+      ],
+      "value": 0.05,
+      "default": 0.05,
+      "changed": false,
+      "help": "自适应上限：max(delta_px, frac*min(H,W))"
+    },
+    "max_rel_rot_deg": {
+      "flags": [
+        "--max_rel_rot_deg"
+      ],
+      "value": 10.0,
+      "default": 10.0,
+      "changed": false,
+      "help": "中心-候选相对旋转角上限（度）；>0 时启用，超过则直接过滤"
+    },
+    "target_disp_px": {
+      "flags": [
+        "--target_disp_px"
+      ],
+      "value": 0.0,
+      "default": 0.0,
+      "changed": false,
+      "help": "目标视差（像素）；<=0 时按 factor 推断"
+    },
+    "target_disp_factor": {
+      "flags": [
+        "--target_disp_factor"
+      ],
+      "value": 0.03,
+      "default": 0.03,
+      "changed": false,
+      "help": "目标视差系数（0.02*min(H,W)）"
+    },
+    "adjacent_offset": {
+      "flags": [
+        "--adjacent_offset"
+      ],
+      "value": 1,
+      "default": 1,
+      "changed": false,
+      "help": "定义邻接基线的偏移 k（如 1 或 5），仅比较 ±k 基线与最佳方案"
+    },
+    "min_U": {
+      "flags": [
+        "--min_U"
+      ],
+      "value": 0.5,
+      "default": 0.5,
+      "changed": false,
+      "help": "单侧覆盖率 U 的硬阈"
+    },
+    "min_side_score": {
+      "flags": [
+        "--min_side_score"
+      ],
+      "value": 0.0,
+      "default": 0.0,
+      "changed": false,
+      "help": "单侧 score_side 的硬阈"
+    },
+    "window": {
+      "flags": [
+        "--window"
+      ],
+      "value": 10,
+      "default": 10,
+      "changed": false,
+      "help": "候选前后帧窗口半径"
+    },
+    "image_root": {
+      "flags": [
+        "--image_root"
+      ],
+      "value": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/All",
+      "default": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/All",
+      "changed": false,
+      "help": "原始图像根目录（与阶段一一致）"
+    },
+    "metrics_root": {
+      "flags": [
+        "--metrics_root"
+      ],
+      "value": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/tri_metrics",
+      "default": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/tri_metrics",
+      "changed": false,
+      "help": "阶段一输出根目录（包含 <seq>/frames.jsonl 与 global_stats.json）"
+    },
+    "out_root": {
+      "flags": [
+        "--out_root"
+      ],
+      "value": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri/tri_win10_disp0.03_lap0_rot10d_U0.5_S0",
+      "default": "<DATA_ROOT>/UAVid2020/uavid_v1.5_official_release/Germany_tri",
+      "changed": true,
+      "help": "输出根目录基路径；若提供，将在其下自动创建 tri_<tag> 子目录。未指定时落在 image_root 同级。"
+    }
+  },
+  "derived": {
+    "delta_band_rule": {
+      "eps_px": 2.0,
+      "delta_px": 80.0,
+      "delta_px_frac": 0.05,
+      "effective_formula": "max(delta_px, delta_px_frac * min(H,W))"
+    },
+    "target_disparity_rule": {
+      "mode": "fraction_of_min_hw",
+      "target_disp_px": 0.0,
+      "target_disp_factor": 0.03
+    },
+    "gating_thresholds": {
+      "min_U": 0.5,
+      "min_side_score": 0.0,
+      "max_rel_rot_deg": 10.0
+    }
+  }
+}

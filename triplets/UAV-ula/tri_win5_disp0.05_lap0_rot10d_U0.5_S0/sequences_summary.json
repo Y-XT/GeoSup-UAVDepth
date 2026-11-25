@@ -1,0 +1,196 @@
+{
+  "run_tag": "win5_disp0.05_lap0_rot10d_U0.5_S0",
+  "generated_at": "2026-03-28T01:53:16",
+  "sequence_count": 31,
+  "total_frames": 7310,
+  "total_selected_triplets": 6851,
+  "total_rejected": 459,
+  "sequences": [
+    {
+      "seq": "DJI_0167/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 292,
+      "rejected_total": 9
+    },
+    {
+      "seq": "DJI_0168/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 277,
+      "rejected_total": 24
+    },
+    {
+      "seq": "DJI_0169/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 296,
+      "rejected_total": 5
+    },
+    {
+      "seq": "DJI_0170/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 281,
+      "rejected_total": 20
+    },
+    {
+      "seq": "DJI_0171/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 283,
+      "rejected_total": 18
+    },
+    {
+      "seq": "DJI_0172/image_02/data",
+      "total_frames": 10,
+      "selected_triplets": 8,
+      "rejected_total": 2
+    },
+    {
+      "seq": "DJI_0174/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 282,
+      "rejected_total": 19
+    },
+    {
+      "seq": "DJI_0175/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 293,
+      "rejected_total": 8
+    },
+    {
+      "seq": "DJI_0176/image_02/data",
+      "total_frames": 239,
+      "selected_triplets": 211,
+      "rejected_total": 28
+    },
+    {
+      "seq": "DJI_0232/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 281,
+      "rejected_total": 20
+    },
+    {
+      "seq": "DJI_0233/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 280,
+      "rejected_total": 21
+    },
+    {
+      "seq": "DJI_0234/image_02/data",
+      "total_frames": 241,
+      "selected_triplets": 225,
+      "rejected_total": 16
+    },
+    {
+      "seq": "DJI_0235/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 259,
+      "rejected_total": 42
+    },
+    {
+      "seq": "DJI_0236/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 277,
+      "rejected_total": 24
+    },
+    {
+      "seq": "DJI_0237/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 270,
+      "rejected_total": 31
+    },
+    {
+      "seq": "DJI_0238/image_02/data",
+      "total_frames": 241,
+      "selected_triplets": 213,
+      "rejected_total": 28
+    },
+    {
+      "seq": "DJI_0239/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 289,
+      "rejected_total": 12
+    },
+    {
+      "seq": "DJI_0240/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 299,
+      "rejected_total": 2
+    },
+    {
+      "seq": "DJI_0241/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 293,
+      "rejected_total": 8
+    },
+    {
+      "seq": "DJI_0242/image_02/data",
+      "total_frames": 291,
+      "selected_triplets": 285,
+      "rejected_total": 6
+    },
+    {
+      "seq": "DJI_0244/image_02/data",
+      "total_frames": 301,
+      "selected_triplets": 284,
+      "rejected_total": 17
+    },
+    {
+      "seq": "DJI_0245/image_02/data",
+      "total_frames": 251,
+      "selected_triplets": 213,
+      "rejected_total": 38
+    },
+    {
+      "seq": "DJI_0416/image_02/data",
+      "total_frames": 41,
+      "selected_triplets": 39,
+      "rejected_total": 2
+    },
+    {
+      "seq": "DJI_0417/image_02/data",
+      "total_frames": 83,
+      "selected_triplets": 77,
+      "rejected_total": 6
+    },
+    {
+      "seq": "DJI_0421/image_02/data",
+      "total_frames": 222,
+      "selected_triplets": 217,
+      "rejected_total": 5
+    },
+    {
+      "seq": "DJI_0422/image_02/data",
+      "total_frames": 131,
+      "selected_triplets": 125,
+      "rejected_total": 6
+    },
+    {
+      "seq": "DJI_0424/image_02/data",
+      "total_frames": 111,
+      "selected_triplets": 109,
+      "rejected_total": 2
+    },
+    {
+      "seq": "DJI_0425/image_02/data",
+      "total_frames": 260,
+      "selected_triplets": 230,
+      "rejected_total": 30
+    },
+    {
+      "seq": "DJI_0426/image_02/data",
+      "total_frames": 110,
+      "selected_triplets": 108,
+      "rejected_total": 2
+    },
+    {
+      "seq": "DJI_0427/image_02/data",
+      "total_frames": 250,
+      "selected_triplets": 244,
+      "rejected_total": 6
+    },
+    {
+      "seq": "DJI_0428/image_02/data",
+      "total_frames": 13,
+      "selected_triplets": 11,
+      "rejected_total": 2
+    }
+  ]
+}

@@ -63,9 +63,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Predict and Evaluate Depth (UAV)')
 
     # 数据根 & 子目录
-    parser.add_argument('--gt_folder', type=str,
-                        #default='/mnt/data_nvme3n1p1/dataset/UAVid2020/uavid_v1.5_official_release/Germany/Test',
-                        default='/mnt/data_nvme3n1p1/dataset/UAVid2020/uavid_v1.5_official_release/China/Test',
+    parser.add_argument('--gt_folder', type=str, required=True,
                         help='Test 根目录，下面为各序列 UAV_seqXX/')
 
     parser.add_argument('--img_subdir', type=str, default='images',
@@ -85,10 +83,9 @@ def parse_args() -> argparse.Namespace:
                         help='允许的深度扩展名（带点）；默认仅 .npy')
 
     # 输出与实验（统一输出目录策略）
-    parser.add_argument('--output_base', type=str, default='/home/yxt/文档/mono_result/eval',
+    parser.add_argument('--output_base', type=str, default='outputs/eval',
                         help='集中输出根目录；为空则回落 ./outputs')
-    parser.add_argument('--exp_dir', type=str,
-                        default='/mnt/data_nvme3n1p1/mono_weights/weights/UAVid_China/monovit_vggt_rflow_tinj_uavid_tridataset_512x288_bs8_lr1e-04_e40_step20',
+    parser.add_argument('--exp_dir', type=str, required=True,
                         help='实验目录：包含 models/weights_x 的根目录')
     parser.add_argument('--weights', type=str, default='weights_29',
                         help="'latest' | 整数（如 7）| 目录名（如 weights_7）")

@@ -80,15 +80,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='Predict and Evaluate Depth (UAV)')
 
     # 数据与输出
-    """    
-    parser.add_argument('--gt_folder', type=str, default='/mnt/data_nvme3n1p1/dataset/UAV_ula/GT_ula',
+    parser.add_argument('--gt_folder', type=str, required=True,
                         help='包含各序列的 GT 与图像根目录')
-    """
-    parser.add_argument('--gt_folder', type=str, default='/mnt/data_nvme3n1p1/dataset/UAV_ula/R1_dataset/Test',
-                        help='包含各序列的 GT 与图像根目录')
-    parser.add_argument('--output_base', type=str, default='/home/yxt/文档/mono_result/eval',
+    parser.add_argument('--output_base', type=str, default='outputs/eval',
                         help='输出根目录（会在其中创建 model_name 子目录）')
-    parser.add_argument('--exp_dir', type=str, default='/mnt/data_nvme3n1p1/mono_weights/weights/UAVula_R1/monovit_vggt_rflow_tinj_uavula_tridataset_512x288_bs8_lr1e-04_e40_step20_gqa1',
+    parser.add_argument('--exp_dir', type=str, required=True,
                         help='实验目录：包含 models/weights_x 的根目录')
     parser.add_argument('--weights', type=str, default='weights_27',
                         help="'latest' | 整数（如 7）| 目录名（如 weights_7）")
