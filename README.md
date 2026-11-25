@@ -14,6 +14,8 @@
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-Non--Commercial-57606a?style=for-the-badge" alt="License"></a>
 </p>
 
+<p><i>Better geometric supervision during training — the same MonoViT depth network at inference.</i></p>
+
 <p>
 <a href="#-quick-start"><b>🚀 Quick Start</b></a> &nbsp;·&nbsp;
 <a href="#-data-preparation"><b>📦 Data</b></a> &nbsp;·&nbsp;
@@ -22,7 +24,9 @@
 <a href="#-citation"><b>📝 Citation</b></a>
 </p>
 
-<img src="assets/framework.jpg" width="95%" alt="Overall framework">
+<img src="assets/framework.webp" width="820" alt="Overall framework">
+
+<sub><i>Parallax-guided triplet construction (a) and self-supervised training with prior-guided pose refinement (b).</i></sub>
 
 </div>
 
