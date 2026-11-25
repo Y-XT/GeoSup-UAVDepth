@@ -1,4 +1,3 @@
-from .kitti_dataset import KITTIRAWDataset, KITTIOdomDataset, KITTIDepthDataset
 from .UAVid2020_dataset import UAVid2020_Dataset
 from .UAVid2020_tri_dataset import UAVid2020TripletJsonDataset
 from .UAVula_dataset import UAVula_Dataset

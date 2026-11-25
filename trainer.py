@@ -10,7 +10,6 @@ import math
 from collections import deque, defaultdict
 import torch
 from utils import *
-from kitti_utils import *
 from layers import *
 import wandb
 from trainer_support import (
