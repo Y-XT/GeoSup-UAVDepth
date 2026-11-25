@@ -2,60 +2,109 @@
 
 <h1>Enhancing Training-Time Geometric Supervision<br>for Self-Supervised Monocular Depth Estimation<br>from UAV Imagery</h1>
 
-**Xiaotian Yang** &nbsp;·&nbsp; **Tomohiro Fukuda** &nbsp;—&nbsp; The University of Osaka
+<p>
+<b>Xiaotian Yang</b> &nbsp;&nbsp;&nbsp; <b>Tomohiro Fukuda</b><br>
+<sub>Division of Sustainable Energy and Environmental Engineering, The University of Osaka</sub>
+</p>
 
 <p>
-<img src="https://img.shields.io/badge/ISPRS_JPRS-in_press-1f6feb?style=flat-square" alt="ISPRS JPRS">&nbsp;<img src="https://img.shields.io/badge/PyTorch-2.8-ee4c2c?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch">&nbsp;<a href="LICENSE"><img src="https://img.shields.io/badge/License-non--commercial-6e7781?style=flat-square" alt="License"></a>
+<img src="https://img.shields.io/badge/ISPRS_JPRS-In_Press-0969da?style=for-the-badge" alt="ISPRS JPRS">
+<img src="https://img.shields.io/badge/Python-3.10-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/PyTorch-2.8-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch">
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-Non--Commercial-57606a?style=for-the-badge" alt="License"></a>
 </p>
+
+<p>
+<a href="#-quick-start"><b>🚀 Quick Start</b></a> &nbsp;·&nbsp;
+<a href="#-data-preparation"><b>📦 Data</b></a> &nbsp;·&nbsp;
+<a href="#%EF%B8%8F-training"><b>🏋️ Training</b></a> &nbsp;·&nbsp;
+<a href="#-inference"><b>🔍 Inference</b></a> &nbsp;·&nbsp;
+<a href="#-citation"><b>📝 Citation</b></a>
+</p>
+
+<img src="assets/framework.jpg" width="95%" alt="Overall framework">
 
 </div>
 
-Official training code for self-supervised monocular depth estimation from UAV videos.
-On top of MonoViT, training uses (1) **parallax-guided triplets** whose source frames are selected
-with VGGT geometry, and (2) a **prior-guided PoseNet** that refines VGGT pose priors instead of
-regressing poses from scratch. Inference uses the depth network only.
+<br>
 
-<p align="center"><img src="assets/framework.jpg" width="90%" alt="Overall framework"></p>
+## ✨ Highlights
 
-**Contents:**
-[Installation](#installation) ·
-[Data](#data) ·
-[Training triplets](#training-triplets) ·
-[Training](#training) ·
-[Inference](#inference) ·
-[Code structure](#code-structure) ·
-[Citation](#citation)
+<table>
+<tr>
+<td width="33%" valign="top">
 
-## Installation
+**🎯 Parallax-guided triplets**
+
+Source frames are chosen by their translational parallax to the target frame, using local geometry from VGGT.
+
+</td>
+<td width="33%" valign="top">
+
+**🧭 Prior-guided PoseNet**
+
+VGGT rotation and translation priors enter PoseNet, which predicts only a residual correction.
+
+</td>
+<td width="33%" valign="top">
+
+**⚡ Zero inference overhead**
+
+Both components act during training only; inference runs the MonoViT depth network alone.
+
+</td>
+</tr>
+</table>
+
+## 📰 News
+
+- **2026-11** — Accepted by the *ISPRS Journal of Photogrammetry and Remote Sensing*. Training code and training triplets released.
+
+## 🚀 Quick Start
+
+```bash
+# 1. environment (details below)
+conda create -n uavdepth python=3.10 -y && conda activate uavdepth
+pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu126
+pip install -r requirements.txt
+
+# 2. prepare the images under ./data (see Data preparation)
+
+# 3. unpack the provided triplets and train
+find triplets -name 'triplets.jsonl.gz' -exec gunzip -k {} \;
+python train_tri.py --preset ula          # or: china, germany
+```
+
+## 🛠️ Installation
 
 ```bash
 conda create -n uavdepth python=3.10 -y
 conda activate uavdepth
 
-# 1. PyTorch: choose the build for your CUDA version (https://pytorch.org/get-started/)
+# PyTorch — choose the build for your CUDA version: https://pytorch.org/get-started/
 pip install torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu126
 
-# 2. Python packages
+# Python packages
 pip install -r requirements.txt
 
-# 3. mmcv-full / mmsegmentation (used by the MPViT encoder of MonoViT)
+# mmcv-full / mmsegmentation, required by the MPViT encoder of MonoViT
 pip install -U openmim
-mim install "mmcv-full==1.7.2"       # built from source for recent PyTorch; needs the CUDA toolkit
+mim install "mmcv-full==1.7.2"        # built from source for recent PyTorch (needs the CUDA toolkit)
 pip install mmsegmentation==0.30.0
 ```
 
-**Pretrained encoder.** Download `mpvit_small.pth` (ImageNet-pretrained MPViT-S) from
-[MPViT](https://github.com/youngwanLEE/MPViT) and place it at `pretrained/mpvit_small.pth`,
-or point to it with `MPVIT_CKPT=/path/to/mpvit_small.pth`.
+| Also needed | How |
+|:---|:---|
+| **MPViT-S weights** | Download `mpvit_small.pth` from [MPViT](https://github.com/youngwanLEE/MPViT) to `pretrained/mpvit_small.pth`, or set `MPVIT_CKPT=/path/to/mpvit_small.pth`. |
+| **Weights & Biases** | Training logs go to [W&B](https://wandb.ai/). Run `wandb login`, or set `WANDB_MODE=offline`. |
 
-**Logging.** Training logs to [Weights & Biases](https://wandb.ai/). Run `wandb login` once,
-or set `WANDB_MODE=offline` to keep logs local.
+## 📦 Data Preparation
 
-## Data
+> [!NOTE]
+> Images are **not** redistributed. The repository provides the frame lists (`methods/splits/`) and the
+> training triplets (`triplets/`); rebuild the images from the original datasets as follows.
 
-Images are not redistributed. This repository provides the frame lists (`methods/splits/`) and the
-training triplets (`triplets/`); the images are rebuilt from the original datasets as described below.
-Everything goes under `DATA_ROOT` (default `./data`):
+All data go under `DATA_ROOT` (default `./data`):
 
 ```
 data/
@@ -63,77 +112,78 @@ data/
 │   ├── China/
 │   │   ├── Train/seq2/data_1280/0000000000.jpg ...
 │   │   └── Validation/seq41/data_1280/...
-│   └── Germany/                                  # same structure as China
+│   └── Germany/                      # same structure as China
 └── UAV-ula/
     ├── Train/DJI_0167/image_02/data/0000000001.jpg ...
     ├── Validation/...
     └── Test/...
 ```
 
-### UAVid 2020 (China, Germany)
+### UAVid 2020 — China & Germany
 
-Training frames are extracted from the original UAVid **videos** (download from <https://uavid.nl/>)
-for the sequences listed below:
+Training frames are extracted from the original UAVid **videos** (<https://uavid.nl/>):
 
-- sample every round(video fps / target fps)-th frame, starting from the first frame, with a target of
-  **5 fps for China** and **10 fps for Germany**;
-- resize each frame to **1024×576**;
-- name the frames in extraction order, `0000000000.jpg`, `0000000001.jpg`, …, and store them in
-  `<Train|Validation>/<sequence>/data_1280/`.
+1. **Sample** every round(video fps / target fps)-th frame starting from the first one —
+   target **5 fps** for China, **10 fps** for Germany.
+2. **Resize** each frame to **1024 × 576**.
+3. **Name** the frames in extraction order (`0000000000.jpg`, `0000000001.jpg`, …) and store them in
+   `<Train|Validation>/<sequence>/data_1280/`.
 
-In the paper, obvious static frames were removed afterwards. This is not required: training only
-uses the frames listed in `triplets/` and `methods/splits/`, so extra frames are simply ignored.
+> [!TIP]
+> The paper removed obvious static frames afterwards. You do not need to: training only reads the
+> frames listed in `triplets/` and `methods/splits/`, so any extra frames are ignored.
 
 | | Train | Validation | Test |
 |:---|:---|:---|:---|
-| **China** | seq2–12, 16, 18, 21–28, 32–35, 37, 39, 40 (28 sequences) | seq41, seq42 | UAV_seq1 (239 frames) |
-| **Germany** | seq13, 14, 15, 19, 31, 36 | seq38 | UAV_seq29, UAV_seq30 (480 frames) |
+| **China** | seq2–12, 16, 18, 21–28, 32–35, 37, 39, 40 *(28 seq.)* | seq41, seq42 | UAV_seq1 *(239 frames)* |
+| **Germany** | seq13, 14, 15, 19, 31, 36 | seq38 | UAV_seq29, UAV_seq30 *(480 frames)* |
 
 ### UAV-ula
 
-The UAV-ula images (Yu et al., 2023; request them from the authors) are already provided at 1 fps and
-1024×576, in the same `DJI_xxxx/image_02/data/` layout. Copy the sequences into the splits:
+The UAV-ula images ([Yu et al., 2023](https://doi.org/10.1016/j.isprsjprs.2023.10.010); available from the
+authors) already come at 1 fps and 1024 × 576 in the `DJI_xxxx/image_02/data/` layout. Copy the sequences
+into the splits:
 
 | Train | Validation | Test |
 |:---|:---|:---|
-| DJI_0167–0172, 0174–0176, 0232–0241, 0244, 0245, 0416, 0417, 0421, 0422, 0424–0426, 0428 (29 sequences) | DJI_0242, DJI_0427 | DJI_0166, DJI_0415 (547 frames) |
+| DJI_0167–0172, 0174–0176, 0232–0241, 0244, 0245, 0416, 0417, 0421, 0422, 0424–0426, 0428 *(29 seq.)* | DJI_0242, DJI_0427 | DJI_0166, DJI_0415 *(547 frames)* |
 
-### Split files
+<details>
+<summary><b>About the split files</b></summary>
+<br>
 
-`methods/splits/<UAVid2020_China | UAVid2020_Germany | UAVula_R1>/{train,val,test}_files.txt` list one
-frame per line as `<sequence folder> <frame number>`. The train / val lists contain the target frames of
-the training triplets (a few frames at the start and end of each sequence are not used as targets). The test lists give the evaluation frames for reference; for UAVid they are
-frame numbers of the original 4K test sequences, and the COLMAP reference depths are not released.
+`methods/splits/<UAVid2020_China | UAVid2020_Germany | UAVula_R1>/{train,val,test}_files.txt` list one frame per
+line as `<sequence folder> <frame number>`.
 
-## Training triplets
+- **train / val** — target frames of the training triplets (a few frames at the start and end of each
+  sequence are not used as targets).
+- **test** — evaluation frames, for reference. For UAVid they are frame numbers of the original 4K test
+  sequences; the COLMAP reference depths are not released.
 
-`triplets/` holds the training triplets and VGGT pose priors used in the paper, so VGGT does not
-need to be run. Decompress them once:
+</details>
+
+## 🧩 Training Triplets
+
+`triplets/` contains the selected triplets and VGGT pose priors used in the paper — **no VGGT inference
+is needed**. Unpack once:
 
 ```bash
 find triplets -name 'triplets.jsonl.gz' -exec gunzip -k {} \;
 ```
 
-```
-triplets/
-├── UAVid-China/      tri_win20_<setting>/
-├── UAVid-Germany/    tri_win10_<setting>/
-└── UAV-ula/          tri_win5_<setting>/
-                        ├── triplets.jsonl(.gz)      # one line per target frame
-                        ├── run_config.json          # selection parameters
-                        └── sequences_summary.json   # frames / triplets per sequence
-```
-
-| `<setting>` | γ | θ<sub>max</sub> | Used for |
+| Setting (`triplets/<dataset>/tri_win<N>_…`) | γ | θ<sub>max</sub> | Used for |
 |:---|:---:|:---:|:---|
-| `disp0.05_lap0_rot10d_U0.5_S0` | 0.05 | 10° | **final model** (default in `train_tri.py`) |
-| `disp0.05_lap0_rot20d_U0.5_S0` | 0.05 | 20° | sensitivity to θ<sub>max</sub> |
-| `disp0.05_lap0_rot1d_U0.5_S0` | 0.05 | 1° | sensitivity to θ<sub>max</sub> |
-| `disp0.03_lap0_rot10d_U0.5_S0` | 0.03 | 10° | sensitivity to γ |
-| `disp0.07_lap0_rot10d_U0.5_S0` | 0.07 | 10° | sensitivity to γ |
+| `…_disp0.05_lap0_rot10d_U0.5_S0` | 0.05 | 10° | ⭐ **final model** (preset default) |
+| `…_disp0.05_lap0_rot20d_U0.5_S0` | 0.05 | 20° | sensitivity to θ<sub>max</sub> |
+| `…_disp0.05_lap0_rot1d_U0.5_S0` | 0.05 | 1° | sensitivity to θ<sub>max</sub> |
+| `…_disp0.03_lap0_rot10d_U0.5_S0` | 0.03 | 10° | sensitivity to γ |
+| `…_disp0.07_lap0_rot10d_U0.5_S0` | 0.07 | 10° | sensitivity to γ |
+
+<sub>`N` = 20 (UAVid-China), 10 (UAVid-Germany), 5 (UAV-ula). Each folder holds `triplets.jsonl(.gz)`, `run_config.json` (selection parameters) and `sequences_summary.json` (counts per sequence).</sub>
 
 <details>
-<summary>Record format of <code>triplets.jsonl</code></summary>
+<summary><b>Record format of <code>triplets.jsonl</code></b></summary>
+<br>
 
 ```jsonc
 {
@@ -141,30 +191,28 @@ triplets/
   "center": {"idx": 1, "file": "0000000001.jpg"},  // target frame
   "prev":   {"idx": 0, "file": "0000000000.jpg", "dt": -1, ...},  // backward source frame
   "next":   {"idx": 6, "file": "0000000006.jpg", "dt": 5, ...},   // forward source frame
-  "K_t": [[fx, 0, cx], [0, fy, cy], [0, 0, 1]],    // VGGT intrinsics at W x H (also K_prev, K_next)
+  "K_t": [[fx, 0, cx], [0, fy, cy], [0, 0, 1]],    // VGGT intrinsics (also K_prev, K_next)
   "T_prev_to_t": [[...4x4...]],                    // VGGT relative pose priors
   "T_next_to_t": [[...4x4...]],
   "H": 294, "W": 518                               // resolution of the VGGT estimates
 }
 ```
 
-The `prev` / `next` entries also store the selection statistics (rotation, coverage, median parallax, score).
-Which target frames are used for training or validation is decided by `methods/splits/<split>/{train,val}_files.txt`.
+`prev` / `next` also store the selection statistics (rotation, coverage, median parallax, score).
 
 </details>
 
-## Training
+## 🏋️ Training
 
 ```bash
-python train_tri.py --preset china       # UAVid-China
-python train_tri.py --preset germany     # UAVid-Germany
-python train_tri.py --preset ula         # UAV-ula
+python train_tri.py --preset china        # UAVid-China
+python train_tri.py --preset germany      # UAVid-Germany
+python train_tri.py --preset ula          # UAV-ula
 ```
 
-A preset fills in the paper setting: MPViT-S DepthNet + prior-guided ResNet-18 PoseNet
-(`--methods MonoViT_VGGT_RFlow_TInj`), 512×288 input, batch size 8, Adam with a constant learning
-rate of 1e-4, 40 epochs, seed 42, and the final triplets of that dataset.
-Any option given on the command line overrides the preset:
+Each preset reproduces the paper setting: **MPViT-S DepthNet + prior-guided ResNet-18 PoseNet**,
+512 × 288 input, batch size 8, Adam (constant lr 1e-4), 40 epochs, seed 42.
+Options on the command line override the preset:
 
 ```bash
 # MonoViT baseline (standard PoseNet) on the same triplets
@@ -173,33 +221,37 @@ python train_tri.py --preset ula --methods MonoViT
 # another triplet setting
 python train_tri.py --preset ula --triplet_root triplets/UAV-ula/tri_win5_disp0.05_lap0_rot20d_U0.5_S0
 
-# custom locations
+# custom data / output locations
 DATA_ROOT=/datasets LOG_ROOT=/experiments python train_tri.py --preset china
 ```
 
-Frequently used options (see `options.py` for all):
+<details>
+<summary><b>Frequently used options</b> (all in <code>options.py</code>)</summary>
+<br>
 
 | Option | Meaning |
 |:---|:---|
 | `--methods` | `MonoViT_VGGT_RFlow_TInj` (ours), `MonoViT`, `Monodepth2` |
 | `--triplet_root` | triplet folder to train on |
-| `--data_path` / `--split` | image root and split name (set by the preset) |
+| `--data_path`, `--split` | image root and split name (set by the preset) |
 | `--num_epochs`, `--batch_size`, `--learning_rate`, `--seed` | training schedule |
-| `--load_weights_folder` | resume from `.../models/weights_<epoch>` |
-| `--enable_debug_metrics`, `--enable_automask_margin_viz` | log auto-masking statistics and visualisations (on in the presets) |
+| `--load_weights_folder` | resume from `…/models/weights_<epoch>` |
+| `--enable_debug_metrics`, `--enable_automask_margin_viz` | auto-masking statistics and visualisations (on in the presets) |
 
-Checkpoints are saved after every epoch:
+</details>
+
+Checkpoints are written after every epoch:
 
 ```
 <LOG_ROOT>/<project>/<run name>/models/weights_<epoch>/
-    encoder.pth  decoder.pth        # DepthNet (needed for inference)
-    pose_encoder.pth  pose.pth      # PoseNet (training only)
-    adam.pth
+├── encoder.pth, decoder.pth          # DepthNet  → needed for inference
+├── pose_encoder.pth, pose.pth        # PoseNet   → training only
+└── adam.pth
 ```
 
-## Inference
+## 🔍 Inference
 
-Only the depth network is needed. Example for a single image:
+Only the depth network is needed:
 
 ```python
 import torch
@@ -212,45 +264,46 @@ ckpt = "weights/UAVula_R1/<run name>/models/weights_39"
 
 net = networks.DeepNet(type="mpvitnet").eval()
 enc = torch.load(f"{ckpt}/encoder.pth", map_location="cpu")
-enc.pop("height"), enc.pop("width")                       # stored training resolution
+enc.pop("height"), enc.pop("width")                        # stored training resolution
 net.encoder.load_state_dict(enc)
 net.decoder.load_state_dict(torch.load(f"{ckpt}/decoder.pth", map_location="cpu"))
 
 img = Image.open("image.jpg").convert("RGB").resize((512, 288), Image.LANCZOS)
-x = TF.to_tensor(img).unsqueeze(0)                         # [1, 3, 288, 512], values in [0, 1]
+x = TF.to_tensor(img).unsqueeze(0)                          # [1, 3, 288, 512] in [0, 1]
 with torch.no_grad():
     disp = net(x)[("disp", 0)]
-_, depth = disp_to_depth(disp, 0.1, 150.0)                 # relative depth (scale-ambiguous)
+_, depth = disp_to_depth(disp, 0.1, 150.0)                  # relative (scale-ambiguous) depth
 ```
 
-Predictions are up to scale; the paper aligns them to the reference depth by per-image median scaling.
+> [!NOTE]
+> Predictions are defined up to scale. The paper aligns them to the reference depth by per-image median scaling.
 
-## Code structure
+## 🗂️ Code Structure
 
 ```
-train_tri.py                       training entry with dataset presets
-options.py                         all command-line options
-trainer.py, trainer_support.py     training loop, pose composition, checkpointing
-trainer_init/                      builds data loaders, models, losses and optimiser
-methods/
-├── datasets/                      triplet datasets (UAVid 2020, UAV-ula)
-├── networks/
-│   ├── monovit/                   MonoViT DepthNet (MPViT-S encoder + decoder)
-│   ├── pose_flow_encoder.py       PoseNet encoder with rotation-prior flow input
-│   └── pose_tprior_decoder.py     translation-prior fusion and residual pose head
-├── losses/monodepth2/             photometric + smoothness loss, min. reprojection, auto-masking
-└── splits/                        train / val / test frame lists
-triplets/                          precomputed training triplets and pose priors
+├── train_tri.py                    # training entry with dataset presets
+├── options.py                      # all command-line options
+├── trainer.py, trainer_support.py  # training loop, pose composition, checkpointing
+├── trainer_init/                   # data loaders, models, losses, optimiser
+├── methods/
+│   ├── datasets/                   # triplet datasets (UAVid 2020, UAV-ula)
+│   ├── networks/
+│   │   ├── monovit/                # MonoViT DepthNet (MPViT-S encoder + decoder)
+│   │   ├── pose_flow_encoder.py    # PoseNet encoder with rotation-prior flow
+│   │   └── pose_tprior_decoder.py  # translation-prior fusion + residual pose head
+│   ├── losses/monodepth2/          # photometric + smoothness loss, auto-masking
+│   └── splits/                     # train / val / test frame lists
+└── triplets/                       # training triplets and VGGT pose priors
 ```
 
-## Citation
+## 📝 Citation
 
-The BibTeX entry will be added once the article is published.
+The BibTeX entry will be added once the article is published online.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 This code builds on [Monodepth2](https://github.com/nianticlabs/monodepth2) and is released under its
-non-commercial license (see [LICENSE](LICENSE)). We also thank the authors of
+non-commercial license (see [LICENSE](LICENSE)). We thank the authors of
 [MonoViT](https://github.com/zxcqlf/MonoViT), [MPViT](https://github.com/youngwanLEE/MPViT),
-[VGGT](https://github.com/facebookresearch/vggt) and [GasMono](https://github.com/zxcqlf/GasMono).
-The pose priors in `triplets/` were produced with VGGT; please also follow its license.
+[VGGT](https://github.com/facebookresearch/vggt) and [GasMono](https://github.com/zxcqlf/GasMono)
+for releasing their code. The pose priors in `triplets/` were produced with VGGT; please also follow its license.
