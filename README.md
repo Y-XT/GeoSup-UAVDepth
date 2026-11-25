@@ -104,9 +104,8 @@ pip install mmsegmentation==0.30.0
 
 ## 📦 Data Preparation
 
-> [!NOTE]
-> Images are **not** redistributed. The repository provides the frame lists (`methods/splits/`) and the
-> training triplets (`triplets/`); rebuild the images from the original datasets as follows.
+Images are not redistributed. The repository provides the frame lists (`methods/splits/`) and the
+training triplets (`triplets/`); rebuild the images from the original datasets as follows.
 
 All data go under `DATA_ROOT` (default `./data`):
 
@@ -133,9 +132,8 @@ Training frames are extracted from the original UAVid **videos** (<https://uavid
 3. **Name** the frames in extraction order (`0000000000.jpg`, `0000000001.jpg`, …) and store them in
    `<Train|Validation>/<sequence>/data_1280/`.
 
-> [!TIP]
-> The paper removed obvious static frames afterwards. You do not need to: training only reads the
-> frames listed in `triplets/` and `methods/splits/`, so any extra frames are ignored.
+The paper removed obvious static frames afterwards. This is not required: training only reads the
+frames listed in `triplets/` and `methods/splits/`, so any extra frames are ignored.
 
 | | Train | Validation | Test |
 |:---|:---|:---|:---|
@@ -279,8 +277,7 @@ with torch.no_grad():
 _, depth = disp_to_depth(disp, 0.1, 150.0)                  # relative (scale-ambiguous) depth
 ```
 
-> [!NOTE]
-> Predictions are defined up to scale. The paper aligns them to the reference depth by per-image median scaling.
+Predictions are defined up to scale; the paper aligns them to the reference depth by per-image median scaling.
 
 ## 🗂️ Code Structure
 
