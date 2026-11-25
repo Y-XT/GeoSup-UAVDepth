@@ -8,10 +8,10 @@
 </p>
 
 <p>
-<img src="https://img.shields.io/badge/ISPRS_JPRS-In_Press-0969da?style=for-the-badge" alt="ISPRS JPRS">
-<img src="https://img.shields.io/badge/Python-3.10-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-<img src="https://img.shields.io/badge/PyTorch-2.8-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch">
-<a href="LICENSE"><img src="https://img.shields.io/badge/License-Non--Commercial-57606a?style=for-the-badge" alt="License"></a>
+<a href="#-citation"><img src="https://img.shields.io/badge/ISPRS%20JPRS-1f6feb?style=for-the-badge&logo=bookstack&logoColor=white" alt="ISPRS JPRS"></a>
+<a href="#%EF%B8%8F-installation"><img src="https://img.shields.io/badge/Python%203.10-3776ab?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.10"></a>
+<a href="#%EF%B8%8F-installation"><img src="https://img.shields.io/badge/PyTorch%202.8-ee4c2c?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch 2.8"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/Non--commercial%20license-8957e5?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik04Ljc1Ljc1VjJoLjk4NWMuMzA0IDAgLjYwMy4wOC44NjcuMjMxbDEuMjkuNzM2Yy4wMzguMDIyLjA4LjAzMy4xMjQuMDMzaDIuMjM0YS43NS43NSAwIDAgMSAwIDEuNWgtLjQyN2wyLjExMSA0LjY5MmEuNzUuNzUgMCAwIDEtLjE1NC44MzhjLS4yMS4xNzYtLjQ0MS4zMjctLjY4Ni40NUMxNC41NTYgMTAuNzggMTMuODggMTEgMTMgMTFhNC40OTggNC40OTggMCAwIDEtMi4wMjMtLjQ1NCAzLjU0NCAzLjU0NCAwIDAgMS0uNjg2LS40NS43NS43NSAwIDAgMS0uMTU0LS44MzhMMTIuMTc4IDQuNWgtLjE2MmMtLjMwNSAwLS42MDQtLjA3OS0uODY4LS4yMzFsLTEuMjktLjczNmEuMjQ1LjI0NSAwIDAgMC0uMTI0LS4wMzNIOC43NVYxM2gyLjVhLjc1Ljc1IDAgMCAxIDAgMS41aC02LjVhLjc1Ljc1IDAgMCAxIDAtMS41aDIuNVYzLjVoLS45ODRhLjI0NS4yNDUgMCAwIDAtLjEyNC4wMzNsLTEuMjg5LjczN2MtLjI2NS4xNS0uNTY0LjIzLS44NjkuMjNoLS4xNjJsMi4xMTIgNC42OTJhLjc1Ljc1IDAgMCAxLS4xNTQuODM4Yy0uMjEuMTc2LS40NDEuMzI3LS42ODYuNDVDNC41NTYgMTAuNzggMy44OCAxMSAzIDExYTQuNDk4IDQuNDk4IDAgMCAxLTIuMDIzLS40NTQgMy41NDQgMy41NDQgMCAwIDEtLjY4Ni0uNDUuNzUuNzUgMCAwIDEtLjE1NC0uODM4TDIuMTc4IDQuNUgxLjc1YS43NS43NSAwIDAgMSAwLTEuNWgyLjIzNGEuMjQ5LjI0OSAwIDAgMCAuMTI1LS4wMzNsMS4yODgtLjczN2MuMjY1LS4xNS41NjQtLjIzLjg2OS0uMjNoLjk4NFYuNzVhLjc1Ljc1IDAgMCAxIDEuNSAwWm0yLjk0NSA4LjQ3N2MuMjg1LjEzNS43MTguMjczIDEuMzA1LjI3M3MxLjAyLS4xMzggMS4zMDUtLjI3M0wxMyA2LjMyN1ptLTEwIDBjLjI4NS4xMzUuNzE4LjI3MyAxLjMwNS4yNzNzMS4wMi0uMTM4IDEuMzA1LS4yNzNMMyA2LjMyN1oiLz48L3N2Zz4=" alt="Non-commercial license"></a>
 </p>
 
 <p><i>Better geometric supervision during training — the same MonoViT depth network at inference.</i></p>
@@ -62,7 +62,7 @@ Both components act during training only; inference runs the MonoViT depth netwo
 
 ## 📰 News
 
-- **2026-11** — Accepted by the *ISPRS Journal of Photogrammetry and Remote Sensing*. Training code and training triplets released.
+- **2026-11** — Training code and training triplets released for our *ISPRS Journal of Photogrammetry and Remote Sensing* paper.
 
 ## 🚀 Quick Start
 
