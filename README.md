@@ -32,7 +32,6 @@ Both components are used only during training. Inference uses the depth network 
 | `methods/losses/monodepth2/` | Photometric and smoothness losses with minimum reprojection and auto-masking | Section 3.4 |
 | `methods/splits/` | Train / validation / test frame lists | Section 4.1.1 |
 | `train_tri.py` | Training entry with the final settings for each dataset | Section 4.1.2 |
-| `tools/evaluate_uavid2020.py`, `tools/pred_eval_uavula.py` | Prediction and evaluation | Section 4.1.3 |
 
 ## Installation
 
@@ -70,7 +69,7 @@ data/
 │   ├── China/
 │   │   ├── Train/seq10/data_1280/0000000000.jpg ...
 │   │   ├── Validation/...
-│   │   └── Test/UAV_seq1/{images,depth,colmap_masks}/...
+│   │   └── Test/...
 │   └── Germany/            # same structure as China
 └── UAV-ula/
     ├── Train/DJI_0167/image_02/data/0000000000.jpg ...
@@ -126,25 +125,10 @@ python train_tri.py --preset china      # or germany / ula
 ```
 
 The preset sets the final paper configuration: MPViT-S DepthNet, prior-guided ResNet-18 PoseNet
-(`--methods MonoViT_VGGT_RFlow_TInj`), 512×288 input, batch size 8, Adam with learning rate 1e-4,
+(`--methods MonoViT_VGGT_RFlow_TInj`), 512×288 input, batch size 8, Adam with a constant learning rate of 1e-4,
 40 epochs, seed 42. Any option given on the command line overrides the preset, e.g.
 `--triplet_root triplets/UAV-ula/tri_win5_disp0.05_lap0_rot20d_U0.5_S0` for Table 9.
 Checkpoints are saved under `LOG_ROOT` (default `./weights`).
-
-## Evaluation
-
-```bash
-# UAVid 2020 (China / Germany); dynamic-object masks are read from colmap_masks/
-python tools/evaluate_uavid2020.py --gt_folder data/UAVid2020/China/Test \
-    --exp_dir <training run folder> --weights <epoch>
-
-# UAV-ula
-python tools/pred_eval_uavula.py --gt_folder data/UAV-ula/Test \
-    --exp_dir <training run folder> --weights <epoch>
-```
-
-Both scripts apply per-image median scaling and evaluate within the 5th–95th percentile of the valid
-reference depth of each image, and report AbsRel, SqRel, RMSE, RMSElog and δ < 1.25, 1.25², 1.25³.
 
 ## Citation
 
