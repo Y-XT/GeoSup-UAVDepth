@@ -1,3 +1,4 @@
+Test/DJI_0166/image_02/data 6
 Test/DJI_0166/image_02/data 7
 Test/DJI_0166/image_02/data 8
 Test/DJI_0166/image_02/data 9
@@ -292,6 +293,8 @@ Test/DJI_0166/image_02/data 297
 Test/DJI_0166/image_02/data 298
 Test/DJI_0166/image_02/data 299
 Test/DJI_0166/image_02/data 300
+Test/DJI_0166/image_02/data 301
+Test/DJI_0415/image_02/data 2
 Test/DJI_0415/image_02/data 3
 Test/DJI_0415/image_02/data 4
 Test/DJI_0415/image_02/data 5
@@ -541,3 +544,4 @@ Test/DJI_0415/image_02/data 297
 Test/DJI_0415/image_02/data 298
 Test/DJI_0415/image_02/data 299
 Test/DJI_0415/image_02/data 300
+Test/DJI_0415/image_02/data 301

@@ -53,25 +53,57 @@ or set `WANDB_MODE=offline` to keep logs local.
 
 ## Data
 
-The images are not redistributed. Download **UAVid 2020** (China and Germany subsets) from
-<https://uavid.nl/> and **UAV-ula** from the authors of Yu et al. (2023). Frames are used at
-5 fps (China), 10 fps (Germany) and 1 fps (UAV-ula). Place them under `DATA_ROOT` (default `./data`):
+Images are not redistributed. This repository provides the frame lists (`methods/splits/`) and the
+training triplets (`triplets/`); the images are rebuilt from the original datasets as described below.
+Everything goes under `DATA_ROOT` (default `./data`):
 
 ```
 data/
 ├── UAVid2020/
 │   ├── China/
-│   │   ├── Train/seq10/data_1280/0000000000.jpg ...
-│   │   ├── Validation/...
-│   │   └── Test/...
-│   └── Germany/          # same structure as China
+│   │   ├── Train/seq2/data_1280/0000000000.jpg ...
+│   │   └── Validation/seq41/data_1280/...
+│   └── Germany/                                  # same structure as China
 └── UAV-ula/
-    ├── Train/DJI_0167/image_02/data/0000000000.jpg ...
+    ├── Train/DJI_0167/image_02/data/0000000001.jpg ...
     ├── Validation/...
     └── Test/...
 ```
 
-Sequence folders and frame names must match those used in `triplets/` and `methods/splits/`.
+### UAVid 2020 (China, Germany)
+
+Training frames are extracted from the original UAVid **videos** (download from <https://uavid.nl/>)
+for the sequences listed below:
+
+- sample every round(video fps / target fps)-th frame, starting from the first frame, with a target of
+  **5 fps for China** and **10 fps for Germany**;
+- resize each frame to **1024×576**;
+- name the frames in extraction order, `0000000000.jpg`, `0000000001.jpg`, …, and store them in
+  `<Train|Validation>/<sequence>/data_1280/`.
+
+In the paper, obvious static frames were removed afterwards. This is not required: training only
+uses the frames listed in `triplets/` and `methods/splits/`, so extra frames are simply ignored.
+
+| | Train | Validation | Test |
+|:---|:---|:---|:---|
+| **China** | seq2–12, 16, 18, 21–28, 32–35, 37, 39, 40 (28 sequences) | seq41, seq42 | UAV_seq1 (239 frames) |
+| **Germany** | seq13, 14, 15, 19, 31, 36 | seq38 | UAV_seq29, UAV_seq30 (480 frames) |
+
+### UAV-ula
+
+The UAV-ula images (Yu et al., 2023; request them from the authors) are already provided at 1 fps and
+1024×576, in the same `DJI_xxxx/image_02/data/` layout. Copy the sequences into the splits:
+
+| Train | Validation | Test |
+|:---|:---|:---|
+| DJI_0167–0172, 0174–0176, 0232–0241, 0244, 0245, 0416, 0417, 0421, 0422, 0424–0426, 0428 (29 sequences) | DJI_0242, DJI_0427 | DJI_0166, DJI_0415 (547 frames) |
+
+### Split files
+
+`methods/splits/<UAVid2020_China | UAVid2020_Germany | UAVula_R1>/{train,val,test}_files.txt` list one
+frame per line as `<sequence folder> <frame number>`. The train / val lists contain the target frames of
+the training triplets (a few frames at the start and end of each sequence are not used as targets). The test lists give the evaluation frames for reference; for UAVid they are
+frame numbers of the original 4K test sequences, and the COLMAP reference depths are not released.
 
 ## Training triplets
 
